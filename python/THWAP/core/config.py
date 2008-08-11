@@ -1,6 +1,6 @@
 import re
 
-class Slurp:
+class thSlurp:
 	def __init__(self):
 		self.triggers = []
 
@@ -18,7 +18,7 @@ class Slurp:
 						i['t_callback'](bf.strip())
 				bf = fp.readline()
 
-class Config:
+class thConfig:
 	def __init__(self, file=''):
 		self.file = file
 		self.fp = open(file, 'r')
