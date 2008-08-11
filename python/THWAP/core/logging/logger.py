@@ -1,6 +1,6 @@
 import logging
 
-class Log:
+class thLog:
 	def __init__(self, name=''):
 		logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s',filename='/tmp/myapp.log',filemode='w')
 

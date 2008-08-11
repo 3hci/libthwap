@@ -1,7 +1,7 @@
 import sys
 import os, MySQLdb
 
-class DBase:
+class thDBase:
 	def __init__(self, hostname='', username='', password='', database=''):
 		if hostname == '': raise ex.InvalidHostname, 'ERROR: The hostname provided to db.DBase() was invalid.'
 		if username == '': username = os.getenv('USER')
@@ -33,7 +33,7 @@ class DBase:
 				tables.append(i)
 		return tables
 
-class DB:
+class thDB:
 	def __init__(self, hostname='', username='', password=''):
 		if hostname == '': hostname = localhost
 		if username == '': username = os.getenv('USER')
