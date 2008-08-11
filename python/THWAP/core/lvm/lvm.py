@@ -2,7 +2,7 @@ import sys, os, popen2
 import types
 import exceptions as ex
 
-class LVM2:
+class thLvm2:
 	def __init__(self):
 		self.lvm = '/sbin/lvm'
 	# Utility functions
@@ -151,11 +151,12 @@ class LVM2:
 		print self._run('echo "lvdisplay" | %s' % self.lvm)
 		return None
 
-o = LVM2()
-o.pvcreate(['/dev/sda1', '/dev/sda2', '/dev/sda3', '/dev/sda5', '/dev/sda6', '/dev/sda7'])
-o.vgcreate('group1', ['/dev/sda1', '/dev/sda2', '/dev/sda3'])
-o.vgcreate('group2', ['/dev/sda5', '/dev/sda6', '/dev/sda7'])
+if __name__ == '__main__':
+	o = LVM2()
+	o.pvcreate(['/dev/sda1', '/dev/sda2', '/dev/sda3', '/dev/sda5', '/dev/sda6', '/dev/sda7'])
+	o.vgcreate('group1', ['/dev/sda1', '/dev/sda2', '/dev/sda3'])
+	o.vgcreate('group2', ['/dev/sda5', '/dev/sda6', '/dev/sda7'])
 
-o.vgremove('group1')
-o.vgremove('group2')
+	o.vgremove('group1')
+	o.vgremove('group2')
 o.pvremove(['/dev/sda1', '/dev/sda2', '/dev/sda3', '/dev/sda5', '/dev/sda6', '/dev/sda7'])

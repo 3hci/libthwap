@@ -3,23 +3,23 @@ from thUtils.stdlib import *
 from threading import Thread
 
 # Builtin Commands
-class Commands:
+class thCommands:
 	def __init__(self):
 		return None
 
 # Worker thread
-class Worker(Thread):
+class thWorker(Thread):
 	def __init__(self):
 		Thread.__init__(self)
 	
 	def run(self):
 		return False
 
-class Scheduler:
+class thScheduler:
 	def __init__(self):
 		return None
 
-class Monitor:
+class thMonitor:
 	def __init__(self):
 		cmd = Commands()
 		self.commands = {}

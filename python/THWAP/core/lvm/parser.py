@@ -2,7 +2,7 @@ import sys, os, time
 import types, re
 from excpt import *
 
-class Parser:
+class thParser:
 	def __init__(self):
 		self.parseObj = []
 

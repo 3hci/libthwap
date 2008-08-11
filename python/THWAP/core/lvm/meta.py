@@ -1,7 +1,7 @@
 import os, sys, popen2, re
 import core
 
-class Volume:
+class thVolume:
 	def __init__(self):
 		self.attribs = {}
 	
@@ -23,7 +23,7 @@ class Volume:
 			return False
 
 
-class metaLVM(LVM_Base):
+class thMetaLvm(LVM_Base):
 	def __init__(self):
 		self.lvm_map()
 

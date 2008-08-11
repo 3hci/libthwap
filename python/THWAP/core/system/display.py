@@ -1,4 +1,4 @@
-class Throbber:
+class thThrobber:
 	def __init__(self):
 		self.throb = ['.','o','O','0','O','o','.']
 		self.pos = 0
@@ -11,13 +11,13 @@ class Throbber:
 			self.pos = 0
 		return self.throb[self.pos]
 
-class Spinner(Throbber):
+class thSpinner(Throbber):
 	def __init__(self):
 		Throbber.__init__(self)
 		self.throb = ['-','\\','|','/','-']
 		self.mps = 4
 
-class Progress:
+class thProgress:
 	def __init__(self):
 		self.prc = 0
 		self.prog = '[          ]'
