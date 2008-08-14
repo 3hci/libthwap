@@ -37,7 +37,7 @@ class thConfig:
 				elif re.match("^.*=.*", line) != None and section != '':
 					self.conf[section][line.split('=')[0].strip()] = line.split('=')[1].strip()
 				elif re.match("^.}", line) != None:
-					section == ''
+					section = ''
 		return True
 
 	def dump(self):
@@ -63,7 +63,7 @@ class thConfig:
 			except:
 				return False
 
-	def set(self, sect=None, key=None):
+	def set(self, sect=None, key=None, val=None):
 		if sect == None or key == None or val == None:
 			return False
 		else:

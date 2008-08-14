@@ -29,13 +29,35 @@ end
 
 class thConfig
 	def initialize(file)
-		@fp = File.open(file)
-		self.slurp()
+		self.slurp(file)
 		@fp.close()
 	end
 
 	def slurp
 		@conf = {}
+		section = ''
+		File.open(file).each { |line|
+			if line.chomp != '' and line[0].chr != '#'
+				if line =~ /^.*{/
+					@conf[line.split[0]] = {}
+					section = line.split[0]
+				elsif line =~ /^.*=.*/ and section != ''
+					@conf[section][line.split('=')[0].chop] = line.split('=')[1].chop
+				elsif line =~ /^.}/
+					section = ''
+				end }
+	end
+
+	def dump
+		puts 'method not implemented'
+	end
+
+	def lookup(section, key)
+		puts 'method not implemented'
+	end
+
+	def set(section, key, value)
+		puts 'method not implemented'
 	end
 		
 
