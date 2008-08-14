@@ -43,7 +43,8 @@ class thConfig
 					@conf[section][line.split('=')[0].chop] = line.split('=')[1].chop
 				elsif line =~ /^.}/
 					section = ''
-				end }
+				end
+		end }
 	end
 
 	def lookup(section, key)
@@ -52,9 +53,9 @@ class thConfig
 				@conf[sect_key].each { |hash_key|
 					if hash_key == key
 						return @conf[section][key]
-					end }
-			end }
-		return false
+					end
+			} end
+		} return false
 	end
 
 	def set(section, key, value)
@@ -66,5 +67,7 @@ class thConfig
 		@conf[section] = {key => value}
 		return true
 	end
+	
+end
 		
 
