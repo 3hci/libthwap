@@ -19,9 +19,7 @@ class thSlurp
 				@triggers.each { |trigger|
 					if line =~ trigger.pattern
 						puts "#{line} - #{trigger.pattern.to_s}"
-					end
-				}
-			}
+					end } }
 		end
 	end
 
@@ -48,16 +46,25 @@ class thConfig
 				end }
 	end
 
-	def dump
-		puts 'method not implemented'
-	end
-
 	def lookup(section, key)
-		puts 'method not implemented'
+		@conf.each { |sect_key|
+			if sect_key == section
+				@conf[sect_key].each { |hash_key|
+					if hash_key == key
+						return @conf[section][key]
+					end }
+			end }
+		return false
 	end
 
 	def set(section, key, value)
-		puts 'method not implemented'
+		@conf.each { |sect_key|
+			if sect_key == section
+				@conf[section][key] = value
+				return true
+			end }
+		@conf[section] = {key => value}
+		return true
 	end
 		
 

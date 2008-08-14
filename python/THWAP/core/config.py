@@ -40,20 +40,6 @@ class thConfig:
 					section = ''
 		return True
 
-	def dump(self):
-		try:
-			self.fp = open(self.file, 'w+')
-			for a in self.conf.keys():
-				self.fp.write(a+' {\n')
-				for b in self.conf[a].keys():
-					self.fp.write('\t'+b+' = '+self.conf[a][b]+'\n')
-				self.fp.write('}\n')
-				self.fp.flush()
-			self.fp.close()
-			return True
-		except:
-			return False
-
 	def lookup(self, sect=None, key=None):
 		if sect == None or key == None:
 			return False
