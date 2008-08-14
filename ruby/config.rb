@@ -5,7 +5,7 @@ class thSlurp
 
 	def regCallBack(pattern, callback)
 		if pattern == nil or callback == nil
-				puts 'dumbass'
+			puts 'dumbass'
 		else
 			@triggers.push({'pattern' => pattern, 'callback' => callback})
 		end
@@ -24,4 +24,18 @@ class thSlurp
 			}
 		end
 	end
+
 end
+
+class thConfig
+	def initialize(file)
+		@fp = File.open(file)
+		self.slurp()
+		@fp.close()
+	end
+
+	def slurp
+		@conf = {}
+	end
+		
+
