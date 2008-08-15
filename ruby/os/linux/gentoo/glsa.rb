@@ -11,17 +11,15 @@ class thGlsa
 	end
 
 	def addUnaffected(st)
-		tmp = st.chomp.chop.split
-		name = tmp[0]
-		@unaffct[name] = st.chomp.chop.split(st.chomp.chop.split[1])[1].chomp
+		@unaffct[st.chomp.chop.split[0]] = st.chomp.chop.split(st.chomp.chop.split[1])[1].chomp
 	end
 
 	def addAffected(st)
-		return
+		@affectd[st.chomp.chop.split[0]] = st.chomp.chop.split(st.chomp.chop.split[1])[1].chomp
 	end
 
 	def addApplied(st)
-		return
+		@applied[st.chomp.chop.split[0]] = st.chomp.chop.split(st.chomp.chop.split[1])[1].chomp
 	end
 
 	def printStatus
