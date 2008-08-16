@@ -51,7 +51,7 @@ class thGlsa
 			puts "INFO: #{pkg} : #{@affectd[pkg]}\n" }
 	end
 end
-		return
-	end
 
-
+@@var
+@var
+A
