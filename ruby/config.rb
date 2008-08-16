@@ -3,7 +3,7 @@ class thSlurp
 			@triggers = []
 	end
 
-	def regCallBack(pattern, callback)
+	def registerTrigger(pattern, callback)
 		if pattern == nil or callback == nil
 			puts 'dumbass'
 		else
@@ -11,14 +11,14 @@ class thSlurp
 		end
 	end
 
-	def run(file)
+	def process(file)
 		if file == nil
 			puts 'dumbass'
 		else
 			File.open(file).each { |line|
 				@triggers.each { |trigger|
-					if line =~ trigger.pattern
-						puts "#{line} - #{trigger.pattern.to_s}"
+					if line =~ trigger['pattern']
+						trigger['callback'](line)
 					end } }
 		end
 	end
@@ -48,10 +48,10 @@ class thConfig
 	end
 
 	def lookup(section, key)
-		@conf.each { |sect_key|
-			if sect_key == section
-				@conf[sect_key].each { |hash_key|
-					if hash_key == key
+		@conf.each { |sectionKey|
+			if sectionKey == section
+				@conf[sectionKey].each { |hashKey|
+					if hashKey == key
 						return @conf[section][key]
 					end
 			} end
@@ -59,8 +59,8 @@ class thConfig
 	end
 
 	def set(section, key, value)
-		@conf.each { |sect_key|
-			if sect_key == section
+		@conf.each { |sectionKey|
+			if sectionKey == section
 				@conf[section][key] = value
 				return true
 			end }

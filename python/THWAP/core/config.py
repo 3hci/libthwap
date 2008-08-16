@@ -4,18 +4,21 @@ class thSlurp:
 	def __init__(self):
 		self.triggers = []
 
-	def register_trigger(self, args={}):
-		try: self.triggers.append(args)
-		except: return False
+	def registerTrigger(self, pattern='', callback=None:
+		if pattern == '' or callback == None:
+			# call error thingy
+		else:
+			try: self.triggers.append({'pattern': pattern, 'callback': callback)
+			except: return False
 		return True
 
-	def run(self, fp=None):
+	def process(self, fp=None):
 		if fp != None:
 			bf = fp.readline()
 			while bf != '':
 				for i in self.triggers:
-					if re.match(i['t_pattern'],bf.strip()): 
-						i['t_callback'](bf.strip())
+					if re.match(i['pattern'],bf.strip()): 
+						i['callback'](bf.strip())
 				bf = fp.readline()
 
 class thConfig:
