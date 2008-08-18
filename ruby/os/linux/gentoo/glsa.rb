@@ -1,4 +1,4 @@
-class thGlsa
+class ThGlsa
 	def initialize(user, host)
 		if not user: @user = nil; end
 		if not host: @host = nil; end
