@@ -1,4 +1,4 @@
-class thSlurp
+class ThSlurp
 	def initialize
 			@triggers = []
 	end
@@ -18,14 +18,16 @@ class thSlurp
 			File.open(file).each { |line|
 				@triggers.each { |trigger|
 					if line =~ trigger['pattern']
-						trigger['callback'](line)
-					end } }
+						eval("#{trigger['callback']}('#{line}')")
+					end 
+				} 
+			}
 		end
 	end
 
 end
 
-class thConfig
+class ThConfig
 	def initialize(file)
 		self.slurp(file)
 		@fp.close()
@@ -36,15 +38,16 @@ class thConfig
 		section = ''
 		File.open(file).each { |line|
 			if line.chomp != '' and line[0].chr != '#'
-				if line =~ /^.*{/
+				if line =~ /^.*\{/
 					@conf[line.split[0]] = {}
 					section = line.split[0]
 				elsif line =~ /^.*=.*/ and section != ''
 					@conf[section][line.split('=')[0].chop] = line.split('=')[1].chop
-				elsif line =~ /^.}/
+				elsif line =~ /^.\}/
 					section = ''
 				end
-		end }
+			end 
+		}
 	end
 
 	def lookup(section, key)
@@ -54,8 +57,10 @@ class thConfig
 					if hashKey == key
 						return @conf[section][key]
 					end
-			} end
-		} return false
+				} 
+			end
+		} 
+		return false
 	end
 
 	def set(section, key, value)
@@ -63,7 +68,8 @@ class thConfig
 			if sectionKey == section
 				@conf[section][key] = value
 				return true
-			end }
+			end 
+		}
 		@conf[section] = {key => value}
 		return true
 	end
