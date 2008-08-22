@@ -4,11 +4,12 @@ class thSlurp:
 	def __init__(self):
 		self.triggers = []
 
-	def registerTrigger(self, pattern='', callback=None:
+	def registerTrigger(self, pattern='', callback=None):
 		if pattern == '' or callback == None:
+			return
 			# call error thingy
 		else:
-			try: self.triggers.append({'pattern': pattern, 'callback': callback)
+			try: self.triggers.append({'pattern': pattern, 'callback': callback})
 			except: return False
 		return True
 
