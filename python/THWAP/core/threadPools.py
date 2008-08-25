@@ -23,7 +23,10 @@ class thThreadObj(Thread):
 		if self.args == None: self.args = args
 
 	def run(self):
-		self.function(self.args)
+		if self.args != None:
+			self.function(self.args)
+		else:
+			self.function()
 
 # Class: thThreadPool
 # Author: Mike "Fuzzy" Partin

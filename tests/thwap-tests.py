@@ -51,15 +51,20 @@ testSection {
 					self.thConfig.set('testSection', 'testkey', 'anotherValue')
 			self.assertEqual(self.thConfig.lookup('testSection', 'testkey'), 'anotherValue')
 		
-		def iterator(self):
-			for i in range(1,1000):
+		def iterator(self, *args):
+			for i in range(1,1000000):
 				a = 1
-			raise self.MyOwnError
+			raise KeyboardInterrupt
+		
+		def stubby(self, *args):
+			self.assertRaises(KeyboardInterrupt, self.iterator, None)
 
 		def testthreadpool(self):
 			obj = threadPools.thThreadPool(threads=10)
 			self.assertEquals(len(obj.pool), 10)
-
+			for i in range(0,10):
+				obj.pool[i].regWorkLoad(self.stubby)
+				obj.pool[i].run()
 
 if __name__ == '__main__':
 	unittest.main()

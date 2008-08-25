@@ -32,4 +32,8 @@ class UnitTest < Test::Unit::TestCase
 	def test_config
 		assert_equal(0, 0)
 	end
+
+	def test_threadpools
+		obj = nil
+	end
 end
