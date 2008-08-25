@@ -5,7 +5,7 @@
 #
 # Program code
 import sys, os, popen2
-import mslurp
+from THWAP.core import config
 
 class thGlsa:
 	def __init__(self, user=None, host=None):
@@ -17,34 +17,34 @@ class thGlsa:
 		self.unaffct = {}
 		self.affectd = {}
 
-	def add_unaffected(self, st=''):
+	def addUnaffected(self, st=''):
 		if st != '':
 			tmp = st.strip().split()
 			name = tmp[0]
 			self.unaffct[name] = st.strip().split(st.strip().split()[1])[1].strip()
-			self.print_status()
+			self.printStatus()
 		else:
 			return False
 
-	def add_affected(self, st=''):
+	def addAffected(self, st=''):
 		if st != '':
 			tmp = st.strip().split()
 			name = tmp[0]
 			self.affectd[name] = st.strip().split(st.strip().split()[1])[1].strip()
-			self.print_status()
+			self.printStatus()
 		else:
 			return False
 
-	def add_applied(self, st=''):
+	def addApplied(self, st=''):
 		if st != '':
 			tmp = st.strip().split()
 			name = tmp[0]
 			self.applied[name] = st.strip().split(st.strip().split()[1])[1].strip()
-			self.print_status()
+			self.printStatus()
 		else:
 			return False
 
-	def print_status(self):
+	def printStatus(self):
 		sys.stdout.write('Applied:( %5d ) Unaffected:( %5d ) Affected:( %5d )\r' % (len(self.applied.keys()),len(self.unaffct.keys()),len(self.affectd.keys())))
 		sys.stdout.flush()
 
@@ -55,10 +55,10 @@ class thGlsa:
 			sys.stdout.write('Checking system security status on %s ... \n' % self.host)
 		sys.stdout.write('Fetching current GLSA list...\r')
 		sys.stdout.flush()
-		self.slurp = mslurp.Proc()
-		self.slurp.register_trigger({'t_pattern': '^[0-9]+.*\[U\]', 't_callback': self.add_unaffected})
-		self.slurp.register_trigger({'t_pattern': '^[0-9]+.*\[A\]', 't_callback': self.add_applied})
-		self.slurp.register_trigger({'t_pattern': '^[0-9]+.*\[N\]', 't_callback': self.add_affected})
+		self.slurp = config.thSlurp()
+		self.slurp.registerTrigger('^[0-9]+.*\[U\]', self.addUnaffected)
+		self.slurp.register_trigger('^[0-9]+.*\[A\]', self.addApplied)
+		self.slurp.register_trigger('^[0-9]+.*\[N\]', self.addAffected)
 		if self.host != None and self.user == None:
 			obj = popen2.Popen4('ssh %s@%s "%s -ln"' % (os.getenv('USER'),self.host,self.glsa))
 		elif self.host != None and self.user != None:

@@ -1,41 +1,53 @@
 #!/usr/bin/env python
-import sys, os, time
-sys.path.insert(0, '%s/../python/' % os.getenv('PWD'))
+import sys
+import os
+import time
+import random
+import unittest
 
-# python/THWAP/core/config.py unit tests
+# Setup our library paths depending on whether or not we are being run by
+# hand or from the Makefile.
+if os.getenv('PWD').find('test') == -1:
+	sys.path.insert(0, "%s/python/" % os.getenv('PWD'))
+else:
+	sys.path.insert(0, '%s/../python/' % os.getenv('PWD'))
+
+# imports to test
 from THWAP.core import config
-# thSlurp tests
-thSlurpFlag = 0
-def mprint(msg):
-		global thSlurpFlag
-		thSlurpFlag = 1
+from THWAP.os.linux.gentoo import glsa
 
-thSlurp = config.thSlurp()
-fp = open('/tmp/thwap-py-unit-test-slurp', 'w+')
-fp.write('this is a test\nbut this is not\n')
-fp.close()
-fp = open('/tmp/thwap-py-unit-test-slurp','r')
-thSlurp.registerTrigger('^this.*', mprint)
-thSlurp.process(fp)
-if thSlurpFlag == 1:
-	print 'thSlurp interface works as expected.' 
-else:
-	print 'thSlurp interface is not working as expected.'
-os.unlink('/tmp/thwap-py-unit-test-slurp')
+# libTHWAP unit tests
+class unitTest(unittest.TestCase):
+		def setUp(self):
+			# THWAP.core.config.thSlurp()
+			self.thSlurpFlag = 0
+			self.thSlurp = config.thSlurp()
 
-# thConfig tests
-fp = open('/tmp/thwap-py-unit-test-config', 'w+')
-fp.write('''testSection {
-   testkey = testvalue
-}''')
-fp.close()
-thConfig = config.thConfig('/tmp/thwap-py-unit-test-config')
-if thConfig.conf != {} and thConfig.lookup('testSection', 'testkey') == 'testvalue':
-	thConfig.set('testSection', 'testkey', 'anotherValue')
-	if thConfig.lookup('testSection', 'testkey') == 'anotherValue':
-		print 'thConfig interface works as expected.'
-	else:
-		print 'thConfig interface is not working as expected.'
-else:
-	print 'thConfig interface is not working as expected.'
-os.unlink('/tmp/thwap-py-unit-test-config')
+		def thSlurpCallback(self, msg):
+			self.thSlurpFlag = 1
+
+		def testslurp(self):
+			fp = open('/tmp/thwap', 'w+')
+			fp.write('this is a test\nbut this is not\n')
+			fp.close()
+			fp = open('/tmp/thwap', 'r')
+			self.thSlurp.registerTrigger('^this.*', self.thSlurpCallback)
+			self.thSlurp.process(fp)
+			os.unlink('/tmp/thwap')
+			self.assertEqual(self.thSlurpFlag, 1)
+
+		def testconfig(self):
+			fp = open('/tmp/thwap', 'w+')
+			fp.write('''# Comment
+testSection {
+	testkey = testvalue
+}\n''')
+			fp.close()
+			self.thConfig = config.thConfig('/tmp/thwap')
+			if self.thConfig.conf != {}:
+				if self.thConfig.lookup('testSection', 'testkey') == 'testvalue':
+					self.thConfig.set('testSection', 'testkey', 'anotherValue')
+			self.assertEqual(self.thConfig.lookup('testSection', 'testkey'), 'anotherValue')
+
+if __name__ == '__main__':
+	unittest.main()
