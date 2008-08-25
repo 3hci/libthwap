@@ -7,18 +7,6 @@ class thCommands:
 	def __init__(self):
 		return None
 
-# Worker thread
-class thWorker(Thread):
-	def __init__(self):
-		Thread.__init__(self)
-	
-	def run(self):
-		return False
-
-class thScheduler:
-	def __init__(self):
-		return None
-
 class thMonitor:
 	def __init__(self):
 		cmd = Commands()

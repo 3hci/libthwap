@@ -14,6 +14,7 @@ else:
 
 # imports to test
 from THWAP.core import config
+from THWAP.core import threadPools
 from THWAP.os.linux.gentoo import glsa
 
 # libTHWAP unit tests
@@ -22,6 +23,7 @@ class unitTest(unittest.TestCase):
 			# THWAP.core.config.thSlurp()
 			self.thSlurpFlag = 0
 			self.thSlurp = config.thSlurp()
+			self.MyOwnError = 'this is the thing they promised you'
 
 		def thSlurpCallback(self, msg):
 			self.thSlurpFlag = 1
@@ -48,6 +50,16 @@ testSection {
 				if self.thConfig.lookup('testSection', 'testkey') == 'testvalue':
 					self.thConfig.set('testSection', 'testkey', 'anotherValue')
 			self.assertEqual(self.thConfig.lookup('testSection', 'testkey'), 'anotherValue')
+		
+		def iterator(self):
+			for i in range(1,1000):
+				a = 1
+			raise self.MyOwnError
+
+		def testthreadpool(self):
+			obj = threadPools.thThreadPool(threads=10)
+			self.assertEquals(len(obj.pool), 10)
+
 
 if __name__ == '__main__':
 	unittest.main()

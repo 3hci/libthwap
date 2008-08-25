@@ -5,7 +5,7 @@ import thread, time
 # Authro: Mike "Fuzzy" Partin
 # Notes: Spawn a quick thread to do a quick job
 class thSpawnThread:
-	def __init__(self, func, args*):
+	def __init__(self, func, *args):
 		thread.start_new_thread(func, (args))
 		return None
 
@@ -18,7 +18,7 @@ class thThreadObj(Thread):
 		self.function = None
 		self.args = None
 
-	def regWorkLoad(self, function, args*):
+	def regWorkLoad(self, function, *args):
 		if self.function == None: self.function = function
 		if self.args == None: self.args = args
 
@@ -31,8 +31,8 @@ class thThreadObj(Thread):
 #        Also of note, is this class is not finished
 class thThreadPool:
 		def __init__(self, threads=5):
-			self.threadPool = []
+			self.pool = []
 			for i in range(threads):
-					self.theadPool.append(thThreadObj)
+					self.pool.append(thThreadObj())
 			return None
 
