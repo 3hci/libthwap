@@ -10,3 +10,8 @@ install:
 clean:
 	@echo "" >/dev/null
 
+syntax:
+	@for i in `find ./ -type f -name "*.rb"`; do \
+			echo -en "Checking $$i: "; \
+			ruby -c $$i; \
+	done

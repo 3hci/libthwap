@@ -41,3 +41,4 @@ class ThThreadPool
 			}
 		end
 	end
+end

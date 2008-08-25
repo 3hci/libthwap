@@ -15,6 +15,11 @@ install:
 clean:
 	make -C python/ clean
 	make -C ruby/ clean
+	@find ./ -type f -name ".*.sw*" | xargs rm -fv
 
 test:
 	make -C tests/ test 
+
+syntax:
+	make -C python/ syntax
+	make -C ruby/ syntax

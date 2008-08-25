@@ -1,0 +1,3 @@
+class Temp
+
+end
