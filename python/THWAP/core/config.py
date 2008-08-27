@@ -1,6 +1,6 @@
 import re
 
-class thSlurp2:
+class thSlurp:
 	def __init__(self):
 		self.triggers = []
 		self.flagged = None
