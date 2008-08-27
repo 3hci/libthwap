@@ -47,6 +47,10 @@ module THWAP
 				end
 			end
 
+			def getThreads
+				return @threadPool
+			end
+
 			def threadCount
 				return @threadPool.length
 			end

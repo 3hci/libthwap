@@ -33,8 +33,19 @@ class UnitTest < Test::Unit::TestCase
 		assert_equal(0, 0)
 	end
 
+	def iterator(*args)
+		(1..1000000).each do |i|
+			a = 1
+		end
+	end
+
 	def test_threadpools
 		obj = THWAP::Core::ThThreadPool.new(10)
 		assert_equal(10, obj.threadCount) 
+		pool = obj.getThreads
+		pool.each do |i|
+			i.regWorkLoad(self.iterator, 1)
+			i.run
+		end
 	end
 end
