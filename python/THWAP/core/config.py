@@ -1,25 +1,50 @@
 import re
 
-class thSlurp:
+class thSlurp2:
 	def __init__(self):
 		self.triggers = []
+		self.flagged = None
 
-	def registerTrigger(self, pattern='', callback=None):
-		if pattern == '' or callback == None:
-			return
-			# call error thingy
+	def registerTrigger(self, patt='', cback=''):
+		if patt == '' or cback == '':
+			return False
 		else:
-			try: self.triggers.append({'pattern': pattern, 'callback': callback})
+			try: self.triggers.append((patt, cback))
 			except: return False
 		return True
+	
+	def unregisterTrigger(self, patt='', cback=''):
+		if patt == '' or cback == '':
+			return False
+		else:
+			for i in range(0, len(self.triggers)):
+				if self.triggers[i][0] == patt:
+					self.triggers.pop(i)
+					return True
+
+	def setFlag(self, index=None):
+		if index == None:
+			return False
+		else:
+			self.registerTrigger('^.*', self.triggers[index][1])
+			if self.flagged == None: self.flagged = index
+			else: return False
+			return True
+
+	def unsetFlag(self, index=None):
+		if index == None:
+			return False
+		else:
+			if self.flagged == None: return False
+			else: return True
 
 	def process(self, fp=None):
 		if fp != None:
 			bf = fp.readline()
 			while bf != '':
 				for i in self.triggers:
-					if re.match(i['pattern'],bf.strip()): 
-						i['callback'](bf.strip())
+					if re.match(i[0],bf.strip()): 
+						i[1](bf.strip())
 				bf = fp.readline()
 
 class thConfig:

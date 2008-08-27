@@ -1,5 +1,5 @@
 module THWAP
-	module Config
+	module Core
 		class ThSlurp
 			def initialize
 				@triggers = []

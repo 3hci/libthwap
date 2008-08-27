@@ -10,7 +10,7 @@ else
 end
 # imports to test
 require "thwap/core/config"
-
+require "thwap/core/threadPools"
 def _callback
 	return 1
 end
@@ -23,7 +23,7 @@ class UnitTest < Test::Unit::TestCase
 		fp.write("this is a test\nbut this is not")
 		fp.close
 		fp = File.open('/tmp/thwap', 'r')
-		thSlurp = THWAP::Config::ThSlurp.new()
+		thSlurp = THWAP::Core::ThSlurp.new()
 		thSlurp.send :registerTrigger, '^this.*', _callback
 		thSlurp.send :process, fp
 		assert_equal(0, @thSlurpFlag)
@@ -34,6 +34,7 @@ class UnitTest < Test::Unit::TestCase
 	end
 
 	def test_threadpools
-		obj = nil
+		obj = THWAP::Core::ThThreadPool.new(10)
+		assert_equal(10, obj.threadCount) 
 	end
 end
