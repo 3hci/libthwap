@@ -2,10 +2,10 @@ all:
 	@echo "Do more nothing">/dev/null
 
 build:
-	@echo "Nothing to do."
+	gcc -O2 -Wall -std=c99 -lpthread thread.c -o thread
 
 install:
 	@echo "Nothing to do."
 
 clean:
-	@echo "Nothing to do."
+	rm -f a.out thread.a thread.o thread.so thread
