@@ -52,7 +52,7 @@ testSection {
 			self.assertEqual(self.thConfig.lookup('testSection', 'testkey'), 'anotherValue')
 		
 		def iterator(self, *args):
-			for i in range(1,1000000):
+			for i in range(1,100000):
 				a = 1
 			raise KeyboardInterrupt
 		
