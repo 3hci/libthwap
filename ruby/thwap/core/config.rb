@@ -9,16 +9,16 @@ module THWAP
 			def registerTrigger(pattern, callback)
 				if pattern == nil or callback == nil
 					puts 'dumbass'
-				else
-					@triggers.push((pattern, callback))
 				end
+					tmp = [pattern, callback]
+					@triggers.push(tmp)
 			end
 
 			def unregisterTrigger(pattern, callback)
 				if pattern == nil or callback == nil
 					puts 'dumbass'
 				else
-					index = @triggers.index((pattern, callback))
+					index = @triggers.index([pattern, callback])
 					if index != nil
 						@triggers.pop(index)
 					end
