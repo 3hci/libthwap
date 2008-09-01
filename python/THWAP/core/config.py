@@ -42,13 +42,21 @@ class thSlurp:
 				self.unregisterTrigger('^.*', self.triggers[index][1])
 				return True
 
+	def getIndex(self, pattern=None):
+		if pattern != None:
+			for i in range(0,(len(self.triggers)-1)):
+				if self.triggers[i][0] == pattern:
+					return i
+			return None
+		else: return None
+
 	def process(self, fp=None):
 		if fp != None:
 			bf = fp.readline()
 			while bf != '':
 				for i in self.triggers:
 					if re.match(i[0],bf.strip()): 
-						i[1](bf.strip())
+						i[1](bf.strip(), self.getIndex(i[0]))
 				bf = fp.readline()
 
 class thConfig:
