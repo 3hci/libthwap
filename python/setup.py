@@ -1,8 +1,12 @@
 #!/usr/bin/env python
+import os
+if os.path.isfile('../version'):
+	myVersion = open('../version', 'r').readline().strip()
+
 from distutils.core import setup
 setup(
 				name='THWAP',
-				version='0.2.3',
+				version=myVersion,
 				py_modules=[
 					'THWAP/__init__', 
 					'THWAP/core/__init__', 
