@@ -1,11 +1,16 @@
+CC=gcc
+CFLAGS=-std=c99 -g -O3 -Wall -Wstrict-prototypes -fPIC -I/usr/include -I/usr/include/python2.5
+LDFLAGS=-L/usr/lib -L/usr/lib/python2.5 -lpython2.5
+
 all:
 	@echo "Do more nothing">/dev/null
 
 build:
-	gcc -O2 -Wall -std=c99 -lpthread thread.c -o thread
+	$(CC) $(CFLAGS) -c thThread.c -o thThread.o
+	$(CC) $(LDFLAGS) -shared thThread.o -o thThread.so
 
 install:
 	@echo "Nothing to do."
 
 clean:
-	rm -f a.out thread.a thread.o thread.so thread
+	rm -f a.out thThread.o thThread.so 
