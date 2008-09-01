@@ -7,10 +7,12 @@ all:
 
 build:
 	$(CC) $(CFLAGS) -c thThread.c -o thThread.o
-	$(CC) $(LDFLAGS) -shared thThread.o -o thThread.so
+	$(CC) $(CFLAGS) -c python.c -o python.o
+	$(CC) $(CFLAGS) -c ruby.c -o ruby.o
+	$(CC) $(LDFLAGS) -shared thThread.o python.o ruby.o -o thThread.so
 
 install:
 	@echo "Nothing to do."
 
 clean:
-	rm -f a.out thThread.o thThread.so 
+	rm -f a.out *.o *.so 

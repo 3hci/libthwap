@@ -18,7 +18,19 @@ void default_callback(void *arg) {
 	return;
 }
 
-int main(void) {
+void spawn_thread(void *callback, void *arg) {
+	pthread_t *threads;
+	pthread_attr_t *attr;
+	pthread_attr_init(attr);
+	threads = (pthread_t *)malloc(sizeof(*threads));
+
+	pthread_create(threads, attr, (void *)callback, (void *)arg);
+	pthread_join((int)threads, (void *)NULL);
+	return;
+}
+
+
+int test_threads(void) {
 	int i;
 	int n=5;
 	pthread_t *threads;
