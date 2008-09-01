@@ -35,8 +35,12 @@ class thSlurp:
 		if index == None:
 			return False
 		else:
-			if self.flagged == None: return False
-			else: return True
+			if self.flagged == None: 
+				return False
+			else:
+				self.flagged = None
+				self.unregisterTrigger('^.*', self.triggers[index][1])
+				return True
 
 	def process(self, fp=None):
 		if fp != None:
