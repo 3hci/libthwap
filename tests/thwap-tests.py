@@ -9,13 +9,16 @@ import unittest
 # hand or from the Makefile.
 if os.getenv('PWD').find('test') == -1:
 	sys.path.insert(0, "%s/python/" % os.getenv('PWD'))
+	sys.path.insert(0, "%s/ext/" % os.getenv('PWD'))
 else:
 	sys.path.insert(0, '%s/../python/' % os.getenv('PWD'))
+	sys.path.insert(0, "%s/../ext/" % os.getenv('PWD'))
 
 # imports to test
 from THWAP.core import config
 from THWAP.core import threadPools
 from THWAP.os.linux.gentoo import glsa
+import thThread
 
 # libTHWAP unit tests
 class unitTest(unittest.TestCase):
@@ -65,6 +68,9 @@ testSection {
 			for i in range(0,10):
 				obj.pool[i].regWorkLoad(self.stubby)
 				obj.pool[i].run()
+
+		def testext(self):
+			self.assertEquals(thThread.thSpawnThread(), 0)
 
 if __name__ == '__main__':
 	unittest.main()
