@@ -71,6 +71,8 @@ testSection {
 
 		def testext(self):
 			self.assertEquals(thThread.thSpawnThread(), 0)
+			self.assertEquals(thThread.thCreateThread(), 0)
+			self.assertEquals(thThread.thJoinThread(), 0)
 
 if __name__ == '__main__':
 	unittest.main()

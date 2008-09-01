@@ -18,13 +18,24 @@ void default_callback(void *arg) {
 	return;
 }
 
+void create_thread(void *callback, void *arg) {
+	pthread_t *thread;
+	thread = (pthread_t *)malloc(sizeof(*thread));
+
+	pthread_create(thread, NULL, (void *)callback, (void *)arg);
+	return;
+}
+
+void join_thread(pthread_t *thread) {
+	pthread_join((int)thread, (void *)NULL);
+	return;
+}
+
 void spawn_thread(void *callback, void *arg) {
 	pthread_t *threads;
-	pthread_attr_t *attr;
-	pthread_attr_init(attr);
 	threads = (pthread_t *)malloc(sizeof(*threads));
 
-	pthread_create(threads, attr, (void *)callback, (void *)arg);
+	pthread_create(threads, NULL, (void *)callback, (void *)arg);
 	pthread_join((int)threads, (void *)NULL);
 	return;
 }

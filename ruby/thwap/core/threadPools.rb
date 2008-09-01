@@ -54,6 +54,10 @@ module THWAP
 			def threadCount
 				return @threadPool.length
 			end
+
+			def regWorkLoad(callback, args)
+				return nil
+			end
 		end
 	end
 end

@@ -43,9 +43,6 @@ class UnitTest < Test::Unit::TestCase
 		obj = THWAP::Core::ThThreadPool.new(10)
 		assert_equal(10, obj.threadCount) 
 		pool = obj.getThreads
-		pool.each do |i|
-			i.regWorkLoad(self.iterator, 1)
-			i.run
-		end
+		obj.send :regWorkLoad, self.iterator, 1
 	end
 end
