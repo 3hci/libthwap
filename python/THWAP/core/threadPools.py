@@ -38,4 +38,13 @@ class thThreadPool:
 			for i in range(threads):
 					self.pool.append(thThreadObj())
 			return None
+			obj = thThreadObj()
+			obj.regWorkLoad(refillPool, threads)
+			obj.run()
+			return None
 
+		def refillPool(self, threads):
+			while True:
+				while len(self.pool) < threads:
+					self.pool.append(thThreadObj())
+				time.sleep(5)

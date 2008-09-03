@@ -17,6 +17,7 @@ else:
 # imports to test
 from THWAP.core import config
 from THWAP.core import threadPools
+from THWAP.core import msgSys
 from THWAP.os.linux.gentoo import glsa
 import thThread
 
@@ -28,7 +29,7 @@ class unitTest(unittest.TestCase):
 			self.thSlurp = config.thSlurp()
 			self.MyOwnError = 'this is the thing they promised you'
 
-		def thSlurpCallback(self, msg):
+		def thSlurpCallback(self, msg, index):
 			self.thSlurpFlag = 1
 
 		def testslurp(self):
@@ -69,10 +70,11 @@ testSection {
 				obj.pool[i].regWorkLoad(self.stubby)
 				obj.pool[i].run()
 
-		def testext(self):
-			self.assertEquals(thThread.thSpawnThread(), 0)
-			self.assertEquals(thThread.thCreateThread(), 0)
-			self.assertEquals(thThread.thJoinThread(), 0)
+		def testmsgsys(self):
+			obj = msgSys.msgObject()
+			self.assertNotEqual(obj, None)
+			obj = None
+			self.assertEquals(obj, None)
 
 if __name__ == '__main__':
 	unittest.main()
